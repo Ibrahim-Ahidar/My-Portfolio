@@ -1,6 +1,6 @@
 /**
  * Sends contact form data to the Vercel serverless function.
- * @param {{ fullName: string, telephone: string, need: string, message: string, website?: string }} payload
+ * @param {{ fullName: string, email: string, message: string, website?: string }} payload
  * @returns {Promise<{ ok: true }>}
  */
 export async function sendContactMessage(payload) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/navbar.scss';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaGlobe } from 'react-icons/fa';
 import { useLanguage } from '../i18n/LanguageContext';
 import { PROFILE } from '../data/index.jsx';
 
@@ -175,8 +175,12 @@ const Navbar = () => {
               aria-expanded={showLangMenu}
               aria-haspopup="listbox"
             >
-              <span className="lang-code" aria-hidden="true">
-                {currentLang.short}
+              <span className="lang-icon" aria-hidden="true">
+                <FaGlobe />
+              </span>
+              <span className="lang-meta">
+                <span className="lang-label">Lang</span>
+                <span className="lang-code">{currentLang.short}</span>
               </span>
               <FaChevronDown className="lang-chevron" aria-hidden="true" />
             </button>

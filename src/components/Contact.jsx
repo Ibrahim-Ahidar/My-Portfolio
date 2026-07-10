@@ -8,8 +8,7 @@ import { FaWhatsapp, FaEnvelope, FaLinkedin, FaGithub, FaMapMarkerAlt, FaClock, 
 
 const INITIAL_FORM = {
   fullName: '',
-  telephone: '',
-  need: 'Website',
+  email: '',
   message: '',
   website: '', // honeypot — leave empty
 };
@@ -65,22 +64,6 @@ const Contact = () => {
       setStatus('error');
       setErrorMessage(err.message || t('contact.error'));
     }
-  };
-
-  const handleWhatsApp = () => {
-    const message = `
-*New Contact from Portfolio*
-
-Name: ${formData.fullName}
-Phone: ${formData.telephone}
-Need: ${formData.need}
-
-Message:
-${formData.message}
-    `.trim();
-
-    const whatsappURL = `https://wa.me/${PROFILE.social.whatsapp}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappURL, '_blank');
   };
 
   return (
@@ -159,8 +142,7 @@ ${formData.message}
           </div>
 
           <div className="form-column">
-            <form className="contact-form" onSubmit={handleSubmit} noValidate={false}>
-              {/* Honeypot — hidden from users */}
+            <form className="contact-form" onSubmit={handleSubmit}>
               <input
                 type="text"
                 name="website"
@@ -182,44 +164,38 @@ ${formData.message}
                   onChange={handleChange}
                   required
                   maxLength={100}
+                  autoComplete="name"
                   placeholder={t('contact.placeholderName')}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="telephone">{t('contact.telephone')} *</label>
+                <label htmlFor="email">{t('contact.email')} *</label>
                 <input
-                  type="tel"
-                  id="telephone"
-                  name="telephone"
-                  value={formData.telephone}
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
                   onChange={handleChange}
                   required
-                  maxLength={40}
-                  placeholder={t('contact.placeholderPhone')}
+                  maxLength={120}
+                  autoComplete="email"
+                  placeholder={t('contact.placeholderEmail')}
                 />
               </div>
 
               <div className="form-group">
-                <label htmlFor="need">{t('contact.need')} *</label>
-                <select id="need" name="need" value={formData.need} onChange={handleChange} required>
-                  <option value="Website">{t('contact.needWebsite')}</option>
-                  <option value="Mobile App">{t('contact.needMobile')}</option>
-                  <option value="Both">{t('contact.needBoth')}</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="message">{t('contact.message')}</label>
+                <label htmlFor="message">{t('contact.message')} *</label>
                 <textarea
                   id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  rows="4"
+                  required
+                  rows="5"
                   maxLength={2000}
                   placeholder={t('contact.placeholderMessage')}
-                ></textarea>
+                />
               </div>
 
               {status === 'success' && (
@@ -233,7 +209,7 @@ ${formData.message}
                 </p>
               )}
 
-              <div className="form-buttons">
+              <div className="form-buttons form-buttons--single">
                 <button
                   type="submit"
                   className="submit-btn primary"
@@ -241,10 +217,6 @@ ${formData.message}
                 >
                   <FaPaperPlane />
                   <span>{status === 'sending' ? t('contact.sending') : t('contact.submit')}</span>
-                </button>
-                <button type="button" className="submit-btn whatsapp" onClick={handleWhatsApp}>
-                  <FaWhatsapp />
-                  <span>{t('contact.whatsapp')}</span>
                 </button>
               </div>
             </form>

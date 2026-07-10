@@ -125,36 +125,71 @@
       .lang-btn {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 0.4rem;
-        padding: 0.4rem 0.7rem;
-        min-width: var(--touch-min);
+        gap: 0.55rem;
+        padding: 0.35rem 0.55rem 0.35rem 0.35rem;
         min-height: var(--touch-min);
-        background: var(--color-surface);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.02) 100%);
         border: 1px solid var(--color-card-border);
         border-radius: 999px;
         color: var(--color-text-secondary);
         cursor: pointer;
-        transition: all var(--transition-fast);
+        transition: border-color var(--transition-fast), background var(--transition-fast),
+          box-shadow var(--transition-fast), transform var(--transition-fast);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+        .lang-icon {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 1.85rem;
+          height: 1.85rem;
+          border-radius: 50%;
+          background: var(--color-accent-dim);
+          color: var(--color-accent-light);
+          font-size: 0.8rem;
+          flex-shrink: 0;
+        }
+
+        .lang-meta {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.05rem;
+          line-height: 1.05;
+          min-width: 1.75rem;
+        }
+
+        .lang-label {
+          font-size: 0.58rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: var(--color-text-tertiary);
+        }
 
         .lang-code {
-          font-size: 0.75rem;
+          font-size: 0.78rem;
           font-weight: 700;
-          letter-spacing: 0.06em;
+          letter-spacing: 0.04em;
           color: var(--color-text-main);
-          line-height: 1;
         }
 
         .lang-chevron {
-          font-size: 0.65rem;
-          opacity: 0.7;
-          transition: transform 0.2s ease;
+          font-size: 0.62rem;
+          opacity: 0.65;
+          margin-inline-end: 0.15rem;
+          transition: transform 0.2s ease, opacity 0.2s ease;
         }
 
         &:hover {
           background: var(--color-card-hover);
-          border-color: rgba(139, 92, 246, 0.35);
+          border-color: rgba(139, 92, 246, 0.4);
           color: var(--color-text-main);
+          box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.08);
+
+          .lang-icon {
+            background: rgba(139, 92, 246, 0.22);
+          }
         }
 
         &:focus-visible {
@@ -164,17 +199,27 @@
       }
 
       &.open .lang-btn {
-        border-color: rgba(139, 92, 246, 0.45);
-        background: var(--color-accent-dim);
-        color: var(--color-accent-light);
+        border-color: rgba(139, 92, 246, 0.55);
+        background: rgba(139, 92, 246, 0.1);
+        box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+
+        .lang-icon {
+          background: rgba(139, 92, 246, 0.28);
+          color: #ddd6fe;
+        }
+
+        .lang-label {
+          color: var(--color-accent-light);
+        }
 
         .lang-code {
-          color: var(--color-accent-light);
+          color: #ede9fe;
         }
 
         .lang-chevron {
           transform: rotate(180deg);
           opacity: 1;
+          color: var(--color-accent-light);
         }
       }
 

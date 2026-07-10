@@ -1,7 +1,7 @@
-const ALLOWED_NEEDS = new Set(['Website', 'Mobile App', 'Both']);
 const MAX_NAME = 100;
-const MAX_PHONE = 40;
+const MAX_EMAIL = 120;
 const MAX_MESSAGE = 2000;
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function json(res, status, body) {
   res.statusCode = status;
@@ -56,8 +56,7 @@ function readBody(req) {
 
 function validate(payload) {
   const fullName = String(payload.fullName || '').trim();
-  const telephone = String(payload.telephone || '').trim();
-  const need = String(payload.need || '').trim();
+  const email = String(payload.email || '').trim().toLowerCase();
   const message = String(payload.message || '').trim();
   const website = String(payload.website || '').trim(); // honeypot
 
@@ -68,17 +67,14 @@ function validate(payload) {
   if (!fullName || fullName.length > MAX_NAME) {
     return { ok: false, error: 'Please provide a valid name.' };
   }
-  if (!telephone || telephone.length > MAX_PHONE) {
-    return { ok: false, error: 'Please provide a valid phone number.' };
+  if (!email || email.length > MAX_EMAIL || !EMAIL_RE.test(email)) {
+    return { ok: false, error: 'Please provide a valid email address.' };
   }
-  if (!ALLOWED_NEEDS.has(need)) {
-    return { ok: false, error: 'Please select a valid project type.' };
-  }
-  if (message.length > MAX_MESSAGE) {
-    return { ok: false, error: 'Message is too long.' };
+  if (!message || message.length > MAX_MESSAGE) {
+    return { ok: false, error: 'Please provide a message.' };
   }
 
-  return { ok: true, spam: false, data: { fullName, telephone, need, message } };
+  return { ok: true, spam: false, data: { fullName, email, message } };
 }
 
 export default async function handler(req, res) {
@@ -135,11 +131,10 @@ export default async function handler(req, res) {
     return json(res, 200, { ok: true });
   }
 
-  const { fullName, telephone, need, message } = result.data;
+  const { fullName, email, message } = result.data;
   const safeName = escapeHtml(fullName);
-  const safePhone = escapeHtml(telephone);
-  const safeNeed = escapeHtml(need);
-  const safeMessage = escapeHtml(message || '(No message provided)').replace(/\n/g, '<br>');
+  const safeEmail = escapeHtml(email);
+  const safeMessage = escapeHtml(message).replace(/\n/g, '<br>');
 
   try {
     const response = await fetch('https://api.resend.com/emails', {
@@ -151,23 +146,22 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from: fromEmail,
         to: [toEmail],
-        subject: `Portfolio contact: ${need} — ${fullName}`,
+        reply_to: email,
+        subject: `Portfolio contact — ${fullName}`,
         html: `
           <h2>New portfolio contact</h2>
           <p><strong>Name:</strong> ${safeName}</p>
-          <p><strong>Phone:</strong> ${safePhone}</p>
-          <p><strong>Need:</strong> ${safeNeed}</p>
+          <p><strong>Email:</strong> ${safeEmail}</p>
           <p><strong>Message:</strong></p>
           <p>${safeMessage}</p>
         `,
         text: [
           'New portfolio contact',
           `Name: ${fullName}`,
-          `Phone: ${telephone}`,
-          `Need: ${need}`,
+          `Email: ${email}`,
           '',
           'Message:',
-          message || '(No message provided)',
+          message,
         ].join('\n'),
       }),
     });
