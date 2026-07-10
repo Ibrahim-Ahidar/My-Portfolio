@@ -1,6 +1,28 @@
-import React, { useRef, useMemo, useEffect, useState } from 'react';
+import React, { useRef, useMemo, useEffect, useState, Component } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+
+class CanvasErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error) {
+    console.warn('ThreeBackground disabled:', error?.message || error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback ?? null;
+    }
+    return this.props.children;
+  }
+}
 
 function InteractiveParticles({ count1, count2 }) {
   const pointsRef1 = useRef();
@@ -16,9 +38,9 @@ function InteractiveParticles({ count1, count2 }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const [positions1, initialPositions1] = useMemo(() => {
+  const { positions1, initialPositions1 } = useMemo(() => {
     const pos = new Float32Array(count1 * 3);
-    const init = [];
+    const init = new Array(count1);
     for (let i = 0; i < count1; i++) {
       const u = Math.random();
       const v = Math.random();
@@ -34,14 +56,14 @@ function InteractiveParticles({ count1, count2 }) {
       pos[i * 3 + 1] = y;
       pos[i * 3 + 2] = z;
 
-      init.push({ x, y, z, speed: 0.15 + Math.random() * 0.35, angle: Math.random() * Math.PI * 2 });
+      init[i] = { x, y, z, speed: 0.15 + Math.random() * 0.35, angle: Math.random() * Math.PI * 2 };
     }
-    return [pos, init];
+    return { positions1: pos, initialPositions1: init };
   }, [count1]);
 
-  const [positions2, initialPositions2] = useMemo(() => {
+  const { positions2, initialPositions2 } = useMemo(() => {
     const pos = new Float32Array(count2 * 3);
-    const init = [];
+    const init = new Array(count2);
     for (let i = 0; i < count2; i++) {
       const u = Math.random();
       const v = Math.random();
@@ -57,9 +79,9 @@ function InteractiveParticles({ count1, count2 }) {
       pos[i * 3 + 1] = y;
       pos[i * 3 + 2] = z;
 
-      init.push({ x, y, z, speed: 0.25 + Math.random() * 0.55, angle: Math.random() * Math.PI * 2 });
+      init[i] = { x, y, z, speed: 0.25 + Math.random() * 0.55, angle: Math.random() * Math.PI * 2 };
     }
-    return [pos, init];
+    return { positions2: pos, initialPositions2: init };
   }, [count2]);
 
   useFrame((state) => {
@@ -69,41 +91,46 @@ function InteractiveParticles({ count1, count2 }) {
     scrollY.current += (targetScrollY.current - scrollY.current) * 0.05;
 
     if (pointsRef1.current) {
-      pointsRef1.current.rotation.y = time * 0.02 + scrollY.current * 0.0003;
-      pointsRef1.current.rotation.x = time * 0.01 + scrollY.current * 0.0002;
+      const mesh = pointsRef1.current;
+      mesh.rotation.y = time * 0.02 + scrollY.current * 0.0003;
+      mesh.rotation.x = time * 0.01 + scrollY.current * 0.0002;
+      mesh.rotation.y += (pointer.x * 0.15 - mesh.rotation.y) * 0.05;
+      mesh.rotation.x += (-pointer.y * 0.15 - mesh.rotation.x) * 0.05;
 
-      pointsRef1.current.rotation.y += (pointer.x * 0.15 - pointsRef1.current.rotation.y) * 0.05;
-      pointsRef1.current.rotation.x += (-pointer.y * 0.15 - pointsRef1.current.rotation.x) * 0.05;
-
-      const positionAttr = pointsRef1.current.geometry.attributes.position;
-      for (let i = 0; i < count1; i++) {
-        const i3 = i * 3;
-        const initial = initialPositions1[i];
-        const wave = Math.sin(time * initial.speed + initial.angle) * 0.12;
-        positionAttr.array[i3] = initial.x + (initial.x / 4) * wave;
-        positionAttr.array[i3 + 1] = initial.y + (initial.y / 4) * wave;
-        positionAttr.array[i3 + 2] = initial.z + (initial.z / 4) * wave;
+      const positionAttr = mesh.geometry.attributes.position;
+      // Guard: never write past the GPU buffer length (resize is unsupported)
+      if (positionAttr && positionAttr.array.length === count1 * 3) {
+        for (let i = 0; i < count1; i++) {
+          const i3 = i * 3;
+          const initial = initialPositions1[i];
+          const wave = Math.sin(time * initial.speed + initial.angle) * 0.12;
+          positionAttr.array[i3] = initial.x + (initial.x / 4) * wave;
+          positionAttr.array[i3 + 1] = initial.y + (initial.y / 4) * wave;
+          positionAttr.array[i3 + 2] = initial.z + (initial.z / 4) * wave;
+        }
+        positionAttr.needsUpdate = true;
       }
-      positionAttr.needsUpdate = true;
     }
 
     if (pointsRef2.current) {
-      pointsRef2.current.rotation.y = -time * 0.03 - scrollY.current * 0.0002;
-      pointsRef2.current.rotation.x = -time * 0.015 - scrollY.current * 0.0001;
+      const mesh = pointsRef2.current;
+      mesh.rotation.y = -time * 0.03 - scrollY.current * 0.0002;
+      mesh.rotation.x = -time * 0.015 - scrollY.current * 0.0001;
+      mesh.rotation.y += (-pointer.x * 0.2 - mesh.rotation.y) * 0.05;
+      mesh.rotation.x += (pointer.y * 0.2 - mesh.rotation.x) * 0.05;
 
-      pointsRef2.current.rotation.y += (-pointer.x * 0.2 - pointsRef2.current.rotation.y) * 0.05;
-      pointsRef2.current.rotation.x += (pointer.y * 0.2 - pointsRef2.current.rotation.x) * 0.05;
-
-      const positionAttr = pointsRef2.current.geometry.attributes.position;
-      for (let i = 0; i < count2; i++) {
-        const i3 = i * 3;
-        const initial = initialPositions2[i];
-        const wave = Math.cos(time * initial.speed + initial.angle) * 0.08;
-        positionAttr.array[i3] = initial.x + (initial.x / 3) * wave;
-        positionAttr.array[i3 + 1] = initial.y + (initial.y / 3) * wave;
-        positionAttr.array[i3 + 2] = initial.z + (initial.z / 3) * wave;
+      const positionAttr = mesh.geometry.attributes.position;
+      if (positionAttr && positionAttr.array.length === count2 * 3) {
+        for (let i = 0; i < count2; i++) {
+          const i3 = i * 3;
+          const initial = initialPositions2[i];
+          const wave = Math.cos(time * initial.speed + initial.angle) * 0.08;
+          positionAttr.array[i3] = initial.x + (initial.x / 3) * wave;
+          positionAttr.array[i3 + 1] = initial.y + (initial.y / 3) * wave;
+          positionAttr.array[i3 + 2] = initial.z + (initial.z / 3) * wave;
+        }
+        positionAttr.needsUpdate = true;
       }
-      positionAttr.needsUpdate = true;
     }
   });
 
@@ -113,9 +140,7 @@ function InteractiveParticles({ count1, count2 }) {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={count1}
-            array={positions1}
-            itemSize={3}
+            args={[positions1, 3]}
           />
         </bufferGeometry>
         <pointsMaterial
@@ -133,9 +158,7 @@ function InteractiveParticles({ count1, count2 }) {
         <bufferGeometry>
           <bufferAttribute
             attach="attributes-position"
-            count={count2}
-            array={positions2}
-            itemSize={3}
+            args={[positions2, 3]}
           />
         </bufferGeometry>
         <pointsMaterial
@@ -152,67 +175,57 @@ function InteractiveParticles({ count1, count2 }) {
   );
 }
 
+const fallbackBg = {
+  position: 'fixed',
+  inset: 0,
+  width: '100%',
+  height: '100%',
+  zIndex: -2,
+  pointerEvents: 'none',
+  background: 'radial-gradient(circle at 50% 50%, #09090B 0%, #000000 100%)',
+};
+
 export default function ThreeBackground() {
-  const [isMobile, setIsMobile] = useState(false);
-  const [prefersReduced, setPrefersReduced] = useState(false);
+  // Lock particle counts at first paint — resizing BufferAttributes crashes Three.js
+  const [scene] = useState(() => {
+    if (typeof window === 'undefined') {
+      return { prefersReduced: false, isMobile: false, count1: 1500, count2: 800 };
+    }
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return {
+      prefersReduced,
+      isMobile,
+      count1: isMobile ? 500 : 1500,
+      count2: isMobile ? 250 : 800,
+    };
+  });
+
+  const [prefersReduced, setPrefersReduced] = useState(scene.prefersReduced);
 
   useEffect(() => {
-    const mqMobile = window.matchMedia('(max-width: 768px)');
     const mqMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => {
-      setIsMobile(mqMobile.matches);
-      setPrefersReduced(mqMotion.matches);
-    };
-    update();
-    mqMobile.addEventListener('change', update);
+    const update = () => setPrefersReduced(mqMotion.matches);
     mqMotion.addEventListener('change', update);
-    return () => {
-      mqMobile.removeEventListener('change', update);
-      mqMotion.removeEventListener('change', update);
-    };
+    return () => mqMotion.removeEventListener('change', update);
   }, []);
 
   if (prefersReduced) {
-    return (
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'fixed',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: -2,
-          pointerEvents: 'none',
-          background: 'radial-gradient(circle at 50% 50%, #09090B 0%, #000000 100%)',
-        }}
-      />
-    );
+    return <div aria-hidden="true" style={fallbackBg} />;
   }
 
   return (
-    <div
-      aria-hidden="true"
-      style={{
-        position: 'fixed',
-        inset: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: -2,
-        pointerEvents: 'none',
-        background: 'radial-gradient(circle at 50% 50%, #09090B 0%, #000000 100%)',
-      }}
-    >
-      <Canvas
-        camera={{ position: [0, 0, 4.5], fov: 60 }}
-        dpr={isMobile ? [1, 1] : [1, 1.5]}
-        performance={{ min: 0.5 }}
-      >
-        <ambientLight intensity={0.5} />
-        <InteractiveParticles
-          count1={isMobile ? 500 : 1500}
-          count2={isMobile ? 250 : 800}
-        />
-      </Canvas>
+    <div aria-hidden="true" style={fallbackBg}>
+      <CanvasErrorBoundary fallback={null}>
+        <Canvas
+          camera={{ position: [0, 0, 4.5], fov: 60 }}
+          dpr={scene.isMobile ? [1, 1] : [1, 1.5]}
+          performance={{ min: 0.5 }}
+        >
+          <ambientLight intensity={0.5} />
+          <InteractiveParticles count1={scene.count1} count2={scene.count2} />
+        </Canvas>
+      </CanvasErrorBoundary>
     </div>
   );
 }

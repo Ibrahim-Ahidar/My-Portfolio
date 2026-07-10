@@ -38,7 +38,19 @@ function getConfig() {
   return { apiKey, toEmail, fromEmail };
 }
 
-function readBody(req) {
+async function readBody(req) {
+  // Vercel often pre-parses JSON into req.body — prefer that
+  if (req.body != null && req.body !== '') {
+    if (typeof req.body === 'object') return req.body;
+    if (typeof req.body === 'string') {
+      try {
+        return req.body ? JSON.parse(req.body) : {};
+      } catch {
+        throw new Error('Invalid JSON body');
+      }
+    }
+  }
+
   return new Promise((resolve, reject) => {
     const chunks = [];
     req.on('data', (chunk) => chunks.push(chunk));
@@ -91,7 +103,6 @@ export default async function handler(req, res) {
     return json(res, 200, {
       configured: Boolean(apiKey),
       hasToEmail: Boolean(toEmail),
-      // Helps confirm which deployment/runtime you hit
       runtime: 'node',
     });
   }
@@ -146,12 +157,12 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from: fromEmail,
         to: [toEmail],
-        reply_to: email,
+        reply_to: [email],
         subject: `Portfolio contact — ${fullName}`,
         html: `
           <h2>New portfolio contact</h2>
           <p><strong>Name:</strong> ${safeName}</p>
-          <p><strong>Email:</strong> ${safeEmail}</p>
+          <p><strong>Email:</strong> <a href="mailto:${safeEmail}">${safeEmail}</a></p>
           <p><strong>Message:</strong></p>
           <p>${safeMessage}</p>
         `,

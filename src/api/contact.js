@@ -4,10 +4,12 @@
  * @returns {Promise<{ ok: true }>}
  */
 export async function sendContactMessage(payload) {
+  const { fullName, email, message, website = '' } = payload;
+
   const response = await fetch('/api/contact', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({ fullName, email, message, website }),
   });
 
   let data = null;
@@ -18,8 +20,8 @@ export async function sendContactMessage(payload) {
   }
 
   if (!response.ok) {
-    const message = data?.error || 'Failed to send message. Please try again.';
-    throw new Error(message);
+    const messageText = data?.error || 'Failed to send message. Please try again.';
+    throw new Error(messageText);
   }
 
   return data;
