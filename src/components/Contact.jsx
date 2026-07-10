@@ -126,7 +126,13 @@ ${formData.message}
                   <FaWhatsapp />
                   <span>WhatsApp</span>
                 </a>
-                <a href={`mailto:${PROFILE.email}`} className="social-badge email">
+                <a
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PROFILE.email)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-badge email"
+                  aria-label={`Email ${PROFILE.email}`}
+                >
                   <FaEnvelope />
                   <span>Email</span>
                 </a>

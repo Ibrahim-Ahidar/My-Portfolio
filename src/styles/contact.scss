@@ -238,9 +238,12 @@
           font-weight: 600;
           font-size: 0.9rem;
           color: var(--color-text-secondary);
+          text-decoration: none;
           transition: all var(--transition-smooth);
           cursor: pointer;
           box-sizing: border-box;
+          position: relative;
+          z-index: 1;
 
           svg {
             font-size: 1.1rem;

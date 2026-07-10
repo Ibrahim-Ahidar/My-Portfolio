@@ -50,7 +50,12 @@ const Footer = () => {
                 <FaPhone aria-hidden="true" />
                 <span>{PROFILE.social.phone}</span>
               </a>
-              <a href={`mailto:${PROFILE.email}`} className="footer-link">
+              <a
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PROFILE.email)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-link"
+              >
                 <FaEnvelope aria-hidden="true" />
                 <span>{PROFILE.email}</span>
               </a>

@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/navbar.scss';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGlobe, FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
 import { useLanguage } from '../i18n/LanguageContext';
 import { PROFILE } from '../data/index.jsx';
 
 const SECTION_IDS = ['hero', 'services', 'stack', 'projects', 'contact'];
+
+const LANGUAGES = [
+  { code: 'en', name: 'English', short: 'EN' },
+  { code: 'fr', name: 'Français', short: 'FR' },
+  { code: 'es', name: 'Español', short: 'ES' },
+  { code: 'ar', name: 'العربية', short: 'AR' },
+];
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('hero');
@@ -103,14 +110,7 @@ const Navbar = () => {
     setMobileMenuOpen(false);
   }, []);
 
-  const languages = [
-    { code: 'en', name: 'English', flag: '🇬🇧' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' },
-    { code: 'es', name: 'Español', flag: '🇪🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇲🇦' },
-  ];
-
-  const currentLang = languages.find((lang) => lang.code === language);
+  const currentLang = LANGUAGES.find((lang) => lang.code === language) || LANGUAGES[0];
 
   const navItems = [
     { id: 'hero', label: t('nav.home') },
@@ -165,22 +165,25 @@ const Navbar = () => {
         </ul>
 
         <div className="controls">
-          <div className="language-switcher">
+          <div className={`language-switcher ${showLangMenu ? 'open' : ''}`}>
             <button
               type="button"
               className="lang-btn"
               onClick={() => setShowLangMenu(!showLangMenu)}
-              title="Change Language"
+              title="Change language"
+              aria-label={`Language: ${currentLang.name}. Change language`}
               aria-expanded={showLangMenu}
               aria-haspopup="listbox"
             >
-              <span className="flag">{currentLang.flag}</span>
-              <FaGlobe aria-hidden="true" />
+              <span className="lang-code" aria-hidden="true">
+                {currentLang.short}
+              </span>
+              <FaChevronDown className="lang-chevron" aria-hidden="true" />
             </button>
 
             {showLangMenu && (
               <div className="lang-menu" role="listbox" aria-label="Language">
-                {languages.map((lang) => (
+                {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
                     type="button"
@@ -192,8 +195,10 @@ const Navbar = () => {
                       setShowLangMenu(false);
                     }}
                   >
-                    <span className="flag">{lang.flag}</span>
-                    <span>{lang.name}</span>
+                    <span className="lang-code-badge" aria-hidden="true">
+                      {lang.short}
+                    </span>
+                    <span className="lang-name">{lang.name}</span>
                   </button>
                 ))}
               </div>
