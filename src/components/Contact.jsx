@@ -66,6 +66,31 @@ const Contact = () => {
     }
   };
 
+  const handleWhatsApp = () => {
+    const name = formData.fullName.trim();
+    const email = formData.email.trim();
+    const message = formData.message.trim();
+
+    if (!name || !email || !message) {
+      setStatus('error');
+      setErrorMessage(t('contact.whatsappMissing'));
+      return;
+    }
+
+    const text = `
+*New Contact from Portfolio*
+
+Name: ${name}
+Email: ${email}
+
+Message:
+${message}
+    `.trim();
+
+    const whatsappURL = `https://wa.me/${PROFILE.social.whatsapp}?text=${encodeURIComponent(text)}`;
+    window.open(whatsappURL, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <section className="section contact-section" id="contact">
       <motion.div
@@ -209,7 +234,7 @@ const Contact = () => {
                 </p>
               )}
 
-              <div className="form-buttons form-buttons--single">
+              <div className="form-buttons">
                 <button
                   type="submit"
                   className="submit-btn primary"
@@ -217,6 +242,10 @@ const Contact = () => {
                 >
                   <FaPaperPlane />
                   <span>{status === 'sending' ? t('contact.sending') : t('contact.submit')}</span>
+                </button>
+                <button type="button" className="submit-btn whatsapp" onClick={handleWhatsApp}>
+                  <FaWhatsapp />
+                  <span>{t('contact.whatsapp')}</span>
                 </button>
               </div>
             </form>
