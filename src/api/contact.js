@@ -1,15 +1,15 @@
 /**
  * Sends contact form data to the Vercel serverless function.
- * @param {{ fullName: string, email: string, message: string, website?: string }} payload
+ * @param {{ fullName: string, email: string, message: string, _hp_company?: string }} payload
  * @returns {Promise<{ ok: true }>}
  */
 export async function sendContactMessage(payload) {
-  const { fullName, email, message, website = '' } = payload;
+  const { fullName, email, message, _hp_company = '' } = payload;
 
   const response = await fetch('/api/contact', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ fullName, email, message, website }),
+    body: JSON.stringify({ fullName, email, message, _hp_company }),
   });
 
   let data = null;

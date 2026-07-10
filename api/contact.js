@@ -70,9 +70,12 @@ function validate(payload) {
   const fullName = String(payload.fullName || '').trim();
   const email = String(payload.email || '').trim().toLowerCase();
   const message = String(payload.message || '').trim();
-  const website = String(payload.website || '').trim(); // honeypot
+  // Obscure honeypot name — "website" is often autofilled by browsers/password managers
+  const honeypot = String(
+    payload._hp_company || payload.website || ''
+  ).trim();
 
-  if (website) {
+  if (honeypot) {
     return { ok: true, spam: true };
   }
 
@@ -180,10 +183,22 @@ export default async function handler(req, res) {
     if (!response.ok) {
       const details = await response.text();
       console.error('Resend error:', response.status, details);
-      return json(res, 502, { error: 'Failed to send message. Please try again later.' });
+
+      let hint = 'Failed to send message. Please try again later.';
+      if (response.status === 403 && /resend\.dev|own email/i.test(details)) {
+        hint =
+          'Resend blocked the send: with onboarding@resend.dev you can only deliver to the email on your Resend account. Verify a domain or set CONTACT_TO_EMAIL to that account email.';
+      } else if (response.status === 401 || response.status === 403) {
+        hint =
+          'Email provider rejected the request. Check RESEND_API_KEY and CONTACT_FROM_EMAIL in Vercel.';
+      }
+
+      return json(res, 502, { error: hint });
     }
 
-    return json(res, 200, { ok: true });
+    const sent = await response.json().catch(() => null);
+    console.log('Resend accepted email', sent?.id || '(no id)');
+    return json(res, 200, { ok: true, id: sent?.id || undefined });
   } catch (error) {
     console.error('Contact API error:', error);
     return json(res, 500, { error: 'Something went wrong. Please try again later.' });
