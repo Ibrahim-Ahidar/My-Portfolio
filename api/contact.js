@@ -1,7 +1,3 @@
-const CONTACT_TO = process.env.CONTACT_TO_EMAIL || 'ahidaribrahim77@gmail.com';
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || 'Portfolio <onboarding@resend.dev>';
-
 const ALLOWED_NEEDS = new Set(['Website', 'Mobile App', 'Both']);
 const MAX_NAME = 100;
 const MAX_PHONE = 40;
@@ -10,6 +6,7 @@ const MAX_MESSAGE = 2000;
 function json(res, status, body) {
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Cache-Control', 'no-store');
   res.end(JSON.stringify(body));
 }
 
@@ -20,6 +17,25 @@ function escapeHtml(value) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+function getConfig() {
+  // Read at request time (not module load) so Vercel runtime env is always used
+  const apiKey = String(
+    process.env.RESEND_API_KEY ||
+      process.env.resend_api_key ||
+      ''
+  ).trim();
+
+  const toEmail = String(
+    process.env.CONTACT_TO_EMAIL || 'ahidaribrahim77@gmail.com'
+  ).trim();
+
+  const fromEmail = String(
+    process.env.CONTACT_FROM_EMAIL || 'Portfolio <onboarding@resend.dev>'
+  ).trim();
+
+  return { apiKey, toEmail, fromEmail };
 }
 
 function readBody(req) {
@@ -66,19 +82,41 @@ function validate(payload) {
 }
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
     return json(res, 204, {});
   }
 
+  // Safe status check — does not expose secrets
+  if (req.method === 'GET') {
+    const { apiKey, toEmail } = getConfig();
+    return json(res, 200, {
+      configured: Boolean(apiKey),
+      hasToEmail: Boolean(toEmail),
+      // Helps confirm which deployment/runtime you hit
+      runtime: 'node',
+    });
+  }
+
   if (req.method !== 'POST') {
     return json(res, 405, { error: 'Method not allowed' });
   }
 
-  if (!RESEND_API_KEY) {
-    return json(res, 500, { error: 'Email service is not configured.' });
+  const { apiKey, toEmail, fromEmail } = getConfig();
+
+  if (!apiKey) {
+    console.error(
+      'RESEND_API_KEY missing. Available env keys:',
+      Object.keys(process.env)
+        .filter((k) => /resend|contact|email/i.test(k))
+        .join(', ') || '(none matching)'
+    );
+    return json(res, 500, {
+      error:
+        'Email service is not configured. Set RESEND_API_KEY in Vercel and redeploy.',
+    });
   }
 
   let payload;
@@ -93,7 +131,6 @@ export default async function handler(req, res) {
     return json(res, 400, { error: result.error });
   }
 
-  // Honeypot filled — pretend success
   if (result.spam) {
     return json(res, 200, { ok: true });
   }
@@ -108,12 +145,12 @@ export default async function handler(req, res) {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
+        Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: FROM_EMAIL,
-        to: [CONTACT_TO],
+        from: fromEmail,
+        to: [toEmail],
         subject: `Portfolio contact: ${need} — ${fullName}`,
         html: `
           <h2>New portfolio contact</h2>
