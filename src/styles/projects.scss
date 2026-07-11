@@ -55,15 +55,8 @@
     mask-composite: exclude;
     opacity: 0;
     transition: opacity var(--transition-smooth);
-  }
-
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg), 0 0 40px rgba(139, 92, 246, 0.15);
-    
-    &::before {
-      opacity: 0.5;
-    }
+    pointer-events: none;
+    z-index: 0;
   }
 
   @media (max-width: 900px) {
@@ -85,10 +78,6 @@
       .project-content { order: 2; }
       .project-media { order: 1; }
     }
-
-    &:hover {
-      transform: none;
-    }
   }
 
   @media (max-width: 480px) {
@@ -109,6 +98,8 @@
   .project-content {
     text-align: start;
     min-width: 0;
+    position: relative;
+    z-index: 1;
 
     h3 {
       font-size: clamp(1.35rem, 4vw, 2.2rem);
@@ -177,13 +168,6 @@
           padding: 6px 12px;
         }
 
-        &:hover {
-          border-color: var(--color-accent);
-          color: var(--color-accent);
-          background: rgba(139, 92, 246, 0.05);
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
-        }
       }
     }
 
@@ -215,29 +199,23 @@
         color: var(--color-text-main);
         background: var(--color-accent);
         border: 1px solid transparent;
-        transition: all var(--transition-fast);
+        transition: background var(--transition-fast), border-color var(--transition-fast),
+          color var(--transition-fast), box-shadow var(--transition-fast),
+          transform var(--transition-fast);
         box-sizing: border-box;
+        position: relative;
+        z-index: 2;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(139, 92, 246, 0.25);
 
         @media (max-width: 480px) {
           width: 100%;
-        }
-
-        &:hover {
-          background: var(--color-accent-dark);
-          transform: translateY(-1px);
-          box-shadow: var(--shadow-accent);
         }
 
         &.secondary {
           background: transparent;
           border-color: var(--color-card-border);
           color: var(--color-text-secondary);
-
-          &:hover {
-            border-color: rgba(139, 92, 246, 0.4);
-            color: var(--color-text-main);
-            background: var(--color-accent-dim);
-          }
         }
       }
     }
@@ -251,6 +229,8 @@
     overflow: hidden;
     width: 100%;
     min-width: 0;
+    position: relative;
+    z-index: 1;
     transition: all var(--transition-smooth);
 
     @media (max-width: 768px) {
@@ -456,8 +436,34 @@
   }
 }
 
-@media (hover: none) {
+/* Hover effects only on real pointer devices — avoids sticky :hover eating the first tap on mobile */
+@media (hover: hover) and (pointer: fine) {
   .project-card:hover {
-    transform: none;
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg), 0 0 40px rgba(139, 92, 246, 0.15);
+
+    &::before {
+      opacity: 0.5;
+    }
+  }
+
+  .project-card .stack span:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(139, 92, 246, 0.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+  }
+
+  .project-card .project-link-btn:hover {
+    background: var(--color-accent-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-accent);
+  }
+
+  .project-card .project-link-btn.secondary:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+    color: var(--color-text-main);
+    background: var(--color-accent-dim);
   }
 }
