@@ -19,6 +19,19 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
+/** Mask for diagnostics — e.g. ahidaribrahim77@gmail.com → a***@gmail.com */
+function maskEmail(value) {
+  const raw = String(value || '').trim();
+  const match = raw.match(/^(?:.*<)?([^<>\s]+@[^<>\s]+)(?:>)?$/);
+  const email = (match ? match[1] : raw).toLowerCase();
+  const at = email.indexOf('@');
+  if (at < 1) return '(unset)';
+  const user = email.slice(0, at);
+  const domain = email.slice(at + 1);
+  const visible = user.slice(0, 1);
+  return `${visible}***@${domain}`;
+}
+
 function getConfig() {
   // Read at request time (not module load) so Vercel runtime env is always used
   const apiKey = String(
@@ -102,10 +115,12 @@ export default async function handler(req, res) {
 
   // Safe status check — does not expose secrets
   if (req.method === 'GET') {
-    const { apiKey, toEmail } = getConfig();
+    const { apiKey, toEmail, fromEmail } = getConfig();
     return json(res, 200, {
       configured: Boolean(apiKey),
       hasToEmail: Boolean(toEmail),
+      toMasked: maskEmail(toEmail),
+      fromMasked: maskEmail(fromEmail),
       runtime: 'node',
     });
   }
@@ -151,6 +166,15 @@ export default async function handler(req, res) {
   const safeMessage = escapeHtml(message).replace(/\n/g, '<br>');
 
   try {
+    console.log(
+      'Contact send attempt',
+      JSON.stringify({
+        to: maskEmail(toEmail),
+        from: maskEmail(fromEmail),
+        replyTo: maskEmail(email),
+      })
+    );
+
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -160,7 +184,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         from: fromEmail,
         to: [toEmail],
-        reply_to: [email],
+        reply_to: email,
         subject: `Portfolio contact — ${fullName}`,
         html: `
           <h2>New portfolio contact</h2>
@@ -197,8 +221,39 @@ export default async function handler(req, res) {
     }
 
     const sent = await response.json().catch(() => null);
-    console.log('Resend accepted email', sent?.id || '(no id)');
-    return json(res, 200, { ok: true, id: sent?.id || undefined });
+    const emailId = sent?.id || null;
+
+    // Confirm delivery target + event from Resend (not just "accepted")
+    let lastEvent = null;
+    let resendTo = null;
+    if (emailId) {
+      try {
+        const statusRes = await fetch(
+          `https://api.resend.com/emails/${emailId}`,
+          { headers: { Authorization: `Bearer ${apiKey}` } }
+        );
+        if (statusRes.ok) {
+          const statusBody = await statusRes.json();
+          lastEvent = statusBody.last_event || null;
+          resendTo = Array.isArray(statusBody.to)
+            ? statusBody.to.map(maskEmail).join(', ')
+            : maskEmail(statusBody.to);
+          console.log(
+            'Resend status',
+            JSON.stringify({ id: emailId, lastEvent, to: resendTo })
+          );
+        }
+      } catch (statusError) {
+        console.error('Resend status lookup failed:', statusError);
+      }
+    }
+
+    return json(res, 200, {
+      ok: true,
+      id: emailId || undefined,
+      toMasked: resendTo || maskEmail(toEmail),
+      lastEvent: lastEvent || undefined,
+    });
   } catch (error) {
     console.error('Contact API error:', error);
     return json(res, 500, { error: 'Something went wrong. Please try again later.' });
