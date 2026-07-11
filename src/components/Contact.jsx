@@ -10,7 +10,6 @@ const INITIAL_FORM = {
   fullName: '',
   email: '',
   message: '',
-  _hp_company: '', // honeypot — must stay empty (avoid name "website"; browsers autofill it)
 };
 
 const Contact = () => {
@@ -168,20 +167,6 @@ ${message}
 
           <div className="form-column">
             <form className="contact-form" onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="_hp_company"
-                value={formData._hp_company}
-                onChange={handleChange}
-                tabIndex={-1}
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck={false}
-                className="hp-field"
-                aria-hidden="true"
-              />
-
               <div className="form-group">
                 <label htmlFor="fullName">{t('contact.fullName')} *</label>
                 <input

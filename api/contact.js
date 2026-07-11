@@ -83,14 +83,6 @@ function validate(payload) {
   const fullName = String(payload.fullName || '').trim();
   const email = String(payload.email || '').trim().toLowerCase();
   const message = String(payload.message || '').trim();
-  // Obscure honeypot name — "website" is often autofilled by browsers/password managers
-  const honeypot = String(
-    payload._hp_company || payload.website || ''
-  ).trim();
-
-  if (honeypot) {
-    return { ok: true, spam: true };
-  }
 
   if (!fullName || fullName.length > MAX_NAME) {
     return { ok: false, error: 'Please provide a valid name.' };
@@ -102,7 +94,7 @@ function validate(payload) {
     return { ok: false, error: 'Please provide a message.' };
   }
 
-  return { ok: true, spam: false, data: { fullName, email, message } };
+  return { ok: true, data: { fullName, email, message } };
 }
 
 export default async function handler(req, res) {
@@ -151,13 +143,20 @@ export default async function handler(req, res) {
     return json(res, 400, { error: 'Invalid request body.' });
   }
 
+  console.log(
+    'Contact payload keys',
+    JSON.stringify({
+      keys: Object.keys(payload || {}),
+      hasFullName: Boolean(payload?.fullName),
+      hasEmail: Boolean(payload?.email),
+      hasMessage: Boolean(payload?.message),
+      messageLen: String(payload?.message || '').length,
+    })
+  );
+
   const result = validate(payload);
   if (!result.ok) {
     return json(res, 400, { error: result.error });
-  }
-
-  if (result.spam) {
-    return json(res, 200, { ok: true });
   }
 
   const { fullName, email, message } = result.data;
