@@ -15,6 +15,7 @@ export const translations = {
         'I build full-stack web applications with React, Node.js, and MongoDB/PostgreSQL — from polished frontends to secure APIs and production deployments.',
       viewWork: 'View Work',
       downloadCV: 'Download Resume',
+      contact: 'Contact me',
     },
     techStack: {
       title: 'Technologies & Tools',
@@ -120,6 +121,7 @@ export const translations = {
         'Je développe des applications web full-stack avec React, Node.js et MongoDB/PostgreSQL — des interfaces soignées aux API sécurisées et déploiements en production.',
       viewWork: 'Voir mes travaux',
       downloadCV: 'Télécharger le CV',
+      contact: 'Me contacter',
     },
     techStack: {
       title: 'Technologies & Outils',
@@ -225,6 +227,7 @@ export const translations = {
         'Desarrollo aplicaciones web full-stack con React, Node.js y MongoDB/PostgreSQL — desde frontends pulidos hasta APIs seguras y despliegues en producción.',
       viewWork: 'Ver trabajos',
       downloadCV: 'Descargar currículum',
+      contact: 'Contáctame',
     },
     techStack: {
       title: 'Tecnologías y Herramientas',

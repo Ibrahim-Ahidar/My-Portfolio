@@ -39,7 +39,10 @@ const Hero = () => {
           <p className="hero-description">{t('hero.description')}</p>
 
           <div className="cta-buttons">
-            <a href="#projects" className="btn primary">
+            <a href="#contact" className="btn primary">
+              {t('hero.contact')}
+            </a>
+            <a href="#projects" className="btn work-btn">
               {t('hero.viewWork')}
             </a>
             <a
