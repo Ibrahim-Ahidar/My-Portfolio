@@ -4,7 +4,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'frontEnd/**'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -27,6 +27,23 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      // JSX component/icon identifiers are used in markup; without eslint-plugin-react
+      // they look unused. Ignore PascalCase names (components & icon components).
+      'no-unused-vars': [
+        'error',
+        {
+          varsIgnorePattern: '^[A-Z]',
+          argsIgnorePattern: '^_',
+        },
+      ],
+    },
+  },
+  {
+    files: ['api/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
     },
   },
 ]

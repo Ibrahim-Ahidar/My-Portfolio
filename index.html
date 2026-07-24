@@ -4,11 +4,25 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Ibrahim Ahdiar | Full-Stack Developer</title>
+    <title>Ibrahim Ahidar | Full-Stack Developer</title>
     <meta
       name="description"
-      content="Ibrahim Ahdiar — Full-Stack Developer building modern web applications with React, Node.js, and MongoDB. Based in Madrid, Spain."
+      content="Ibrahim Ahidar — Full-Stack Developer. Modern web apps with React, Node.js, MongoDB and PostgreSQL. Based in Madrid, Spain. Open to full-time remote roles."
     />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

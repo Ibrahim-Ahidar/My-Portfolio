@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
@@ -6,39 +6,26 @@ import TechStack from './components/TechStack';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import ThreeBackground from './components/ThreeBackground';
-import SwimmingIcons from './components/SwimmingIcons';
-import LoadingScreen from './components/LoadingScreen';
-import PageProgressBar from './components/PageProgressBar';
 import BackToTop from './components/BackToTop';
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    document.title = "Ibrahim Ahdiar | Full-Stack Developer";
-    const metaDesc = document.querySelector('meta[name="description"]');
+    document.title = 'Ibrahim Ahidar | Full-Stack Developer';
     const description =
-      "Ibrahim Ahdiar — Full-Stack Developer building modern web applications with React, Node.js, and MongoDB. Based in Madrid, Spain.";
+      'Ibrahim Ahidar — Full-Stack Developer. Modern web apps with React, Node.js, MongoDB and PostgreSQL. Based in Madrid, Spain. Open to full-time remote roles.';
+    let metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", description);
+      metaDesc.setAttribute('content', description);
     } else {
-        const meta = document.createElement('meta');
-        meta.name = "description";
-        meta.content = description;
-        document.head.appendChild(meta);
+      metaDesc = document.createElement('meta');
+      metaDesc.name = 'description';
+      metaDesc.content = description;
+      document.head.appendChild(metaDesc);
     }
   }, []);
 
-  if (loading) {
-    return <LoadingScreen onComplete={() => setLoading(false)} />;
-  }
-
   return (
     <div className="App">
-      <PageProgressBar />
-      <SwimmingIcons />
-      <ThreeBackground />
       <Navbar />
       <Hero />
       <Services />

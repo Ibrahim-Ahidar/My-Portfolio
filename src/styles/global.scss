@@ -1,43 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-:root {
-  --color-accent: #8B5CF6;
-  --color-accent-light: #A78BFA;
-  --color-accent-dark: #7C3AED;
-  --color-accent-dim: rgba(139, 92, 246, 0.12);
-  --color-accent-glow: rgba(139, 92, 246, 0.35);
+:root,
+[data-theme='light'] {
+  --color-accent: #1d4ed8;
+  --color-accent-light: #3b82f6;
+  --color-accent-dark: #1e40af;
+  --color-accent-dim: rgba(29, 78, 216, 0.08);
 
-  --gradient-primary: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
-  --gradient-secondary: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%);
-  --gradient-accent: linear-gradient(135deg, #8B5CF6 0%, #C4B5FD 50%, #A78BFA 100%);
-  --gradient-dark: linear-gradient(180deg, #09090B 0%, #18181B 100%);
+  --color-bg: #f0f0f2;
+  --color-surface: #f7f7f8;
+  --color-card: #f7f7f8;
+  --color-card-hover: #ececee;
+  --color-card-border: #dcdce0;
 
-  --color-bg: #09090B;
-  --color-bg-elevated: #18181B;
-  --color-surface: #18181B;
-  --color-card: #1C1C20;
-  --color-card-hover: #27272A;
-  --color-card-border: rgba(255, 255, 255, 0.06);
-
-  --color-text-main: #FAFAFA;
-  --color-text-secondary: #A1A1AA;
-  --color-text-tertiary: #71717A;
-
-  --glass-bg: rgba(24, 24, 27, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+  --color-text-main: #18181b;
+  --color-text-secondary: #52525b;
+  --color-text-tertiary: #71717a;
 
   --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
   --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
 
-  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-smooth: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --transition-fast: 0.2s ease;
+  --transition-smooth: 0.3s ease;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.45);
-  --shadow-accent: 0 0 24px var(--color-accent-glow);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08);
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
@@ -48,6 +36,28 @@
   --safe-left: env(safe-area-inset-left, 0px);
   --touch-min: 44px;
 }
+
+[data-theme='dark'] {
+  --color-accent: #60a5fa;
+  --color-accent-light: #93c5fd;
+  --color-accent-dark: #3b82f6;
+  --color-accent-dim: rgba(96, 165, 250, 0.12);
+
+  --color-bg: #161618;
+  --color-surface: #1e1e22;
+  --color-card: #222228;
+  --color-card-hover: #2a2a30;
+  --color-card-border: #2e2e34;
+
+  --color-text-main: #fafafa;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #71717a;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
 
 * {
   box-sizing: border-box;
@@ -93,7 +103,10 @@ ul {
   list-style: none;
 }
 
-button, input, textarea, select {
+button,
+input,
+textarea,
+select {
   cursor: pointer;
   border: none;
   background: none;
@@ -118,7 +131,7 @@ select:focus-visible {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-surface);
+  background: #d4d4d8;
   border-radius: 10px;
   border: 2px solid var(--color-bg);
 
@@ -129,11 +142,11 @@ select:focus-visible {
 
 ::selection {
   background: var(--color-accent-dim);
-  color: var(--color-accent-light);
+  color: var(--color-accent-dark);
 }
 
 .section {
-  padding: 8rem 2rem;
+  padding: 6rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -146,17 +159,13 @@ select:focus-visible {
   @media (max-width: 480px) {
     padding: 3.5rem 1rem;
   }
-
-  @media (max-width: 360px) {
-    padding: 3rem 0.875rem;
-  }
 }
 
 .section-title {
-  font-size: clamp(1.5rem, 5vw, 2.25rem);
+  font-size: clamp(1.5rem, 5vw, 2rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   text-align: center;
   position: relative;
   display: block;
@@ -175,14 +184,14 @@ select:focus-visible {
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
-    bottom: -12px;
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    width: 48px;
-    height: 3px;
-    background: var(--gradient-primary);
+    width: 40px;
+    height: 2px;
+    background: var(--color-accent);
     border-radius: 2px;
   }
 }
@@ -191,30 +200,30 @@ select:focus-visible {
   color: var(--color-accent);
 }
 
-.swimming-icon {
-  position: absolute;
-  color: var(--color-accent);
-  opacity: 0.12;
-  animation: swim 20s linear infinite;
-  pointer-events: none;
-  will-change: transform;
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
 
-  svg, .icon-svg {
-    width: 1em;
-    height: 1em;
-  }
-
-  @media (max-width: 768px) {
-    opacity: 0.08;
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@keyframes swim {
-  0% { transform: translate(0, 0) rotate(0deg); }
-  25% { transform: translate(100px, -100px) rotate(90deg); }
-  50% { transform: translate(200px, 50px) rotate(180deg); }
-  75% { transform: translate(100px, 150px) rotate(270deg); }
-  100% { transform: translate(0, 0) rotate(360deg); }
+.fade-in {
+  animation: fadeInUp 0.6s ease both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .back-to-top {
@@ -226,24 +235,42 @@ select:focus-visible {
   min-width: var(--touch-min);
   min-height: var(--touch-min);
   border-radius: 50%;
-  background: rgba(15, 15, 15, 0.8);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-  color: white;
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  color: var(--color-text-main);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 1000;
-  font-size: 1.2rem;
-  transition: background 0.3s, box-shadow 0.3s;
+  font-size: 1rem;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast),
+    visibility var(--transition-fast), background var(--transition-fast),
+    color var(--transition-fast);
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  &:hover {
+    background: var(--color-accent);
+    color: #fff;
+    border-color: var(--color-accent);
+  }
 
   @media (min-width: 769px) {
     bottom: 30px;
     right: 30px;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
   }
 }
 
@@ -252,10 +279,6 @@ select:focus-visible {
   justify-content: center;
   margin-top: 1.75rem;
   width: 100%;
-
-  @media (min-width: 901px) {
-    display: none;
-  }
 }
 
 .show-more-btn {
@@ -266,9 +289,9 @@ select:focus-visible {
   min-height: var(--touch-min);
   padding: 0.75rem 1.5rem;
   border-radius: 50px;
-  border: 1px solid rgba(139, 92, 246, 0.35);
-  background: rgba(139, 92, 246, 0.08);
-  color: var(--color-accent-light);
+  border: 1px solid var(--color-card-border);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -283,9 +306,8 @@ select:focus-visible {
 
   &:hover,
   &:focus-visible {
-    background: rgba(139, 92, 246, 0.16);
-    border-color: rgba(139, 92, 246, 0.55);
-    color: var(--color-text-main);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 
   &:active {
@@ -312,7 +334,12 @@ body.menu-open {
     scroll-behavior: auto !important;
   }
 
-  .swimming-icon {
-    animation: none !important;
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .fade-in {
+    animation: none;
   }
 }

@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import '../styles/contact.scss';
-import { motion } from 'framer-motion';
 import { useLanguage } from '../i18n/LanguageContext';
 import { PROFILE } from '../data/index.jsx';
 import { sendContactMessage } from '../api/contact';
-import { FaWhatsapp, FaEnvelope, FaLinkedin, FaGithub, FaMapMarkerAlt, FaClock, FaPaperPlane } from 'react-icons/fa';
+import { useReveal } from '../hooks/useReveal';
+import {
+  FaWhatsapp,
+  FaEnvelope,
+  FaLinkedin,
+  FaGithub,
+  FaPaperPlane,
+} from 'react-icons/fa';
 
 const INITIAL_FORM = {
   fullName: '',
@@ -14,28 +20,10 @@ const INITIAL_FORM = {
 
 const Contact = () => {
   const { t } = useLanguage();
-  const [time, setTime] = useState('');
+  const { ref, className } = useReveal();
   const [formData, setFormData] = useState(INITIAL_FORM);
-  const [status, setStatus] = useState('idle'); // idle | sending | success | error
+  const [status, setStatus] = useState('idle');
   const [errorMessage, setErrorMessage] = useState('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      const options = {
-        timeZone: 'Europe/Madrid',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
-      };
-      const formatter = new Intl.DateTimeFormat([], options);
-      setTime(formatter.format(new Date()));
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -92,37 +80,13 @@ ${message}
 
   return (
     <section className="section contact-section" id="contact">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
+      <div className={className} ref={ref}>
+        <h2 className="section-title">{t('nav.contact')}</h2>
         <div className="contact-grid">
           <div className="info-column">
-            <div className="info-card clock-card">
-              <div className="card-header">
-                <FaClock className="card-icon glow-icon-green" />
-                <h3>{t('contact.localTime')}</h3>
-              </div>
-              <div className="clock-display">{time}</div>
-              <span className="timezone-label">{t('contact.timezone')}</span>
-              <div className="status-badge">
-                <span className="ping-dot"></span>
-                <span>{t('contact.available')}</span>
-              </div>
-            </div>
-
-            <div className="info-card location-card">
-              <div className="card-header">
-                <FaMapMarkerAlt className="card-icon glow-icon-blue" />
-                <h3>{t('contact.location')}</h3>
-              </div>
-              <p className="location-text">{PROFILE.location}</p>
-            </div>
-
             <div className="info-card quick-connect-card">
               <h3>{t('contact.quickConnect')}</h3>
+              <p className="contact-lead">{t('contact.available')}</p>
               <div className="social-links-grid">
                 <a
                   href={`https://wa.me/${PROFILE.social.whatsapp}`}
@@ -130,7 +94,7 @@ ${message}
                   rel="noopener noreferrer"
                   className="social-badge whatsapp"
                 >
-                  <FaWhatsapp />
+                  <FaWhatsapp aria-hidden="true" />
                   <span>WhatsApp</span>
                 </a>
                 <a
@@ -140,7 +104,7 @@ ${message}
                   className="social-badge email"
                   aria-label={`Email ${PROFILE.email}`}
                 >
-                  <FaEnvelope />
+                  <FaEnvelope aria-hidden="true" />
                   <span>Email</span>
                 </a>
                 <a
@@ -149,7 +113,7 @@ ${message}
                   rel="noopener noreferrer"
                   className="social-badge linkedin"
                 >
-                  <FaLinkedin />
+                  <FaLinkedin aria-hidden="true" />
                   <span>LinkedIn</span>
                 </a>
                 <a
@@ -158,7 +122,7 @@ ${message}
                   rel="noopener noreferrer"
                   className="social-badge github"
                 >
-                  <FaGithub />
+                  <FaGithub aria-hidden="true" />
                   <span>GitHub</span>
                 </a>
               </div>
@@ -228,18 +192,18 @@ ${message}
                   className="submit-btn primary"
                   disabled={status === 'sending'}
                 >
-                  <FaPaperPlane />
+                  <FaPaperPlane aria-hidden="true" />
                   <span>{status === 'sending' ? t('contact.sending') : t('contact.submit')}</span>
                 </button>
                 <button type="button" className="submit-btn whatsapp" onClick={handleWhatsApp}>
-                  <FaWhatsapp />
+                  <FaWhatsapp aria-hidden="true" />
                   <span>{t('contact.whatsapp')}</span>
                 </button>
               </div>
             </form>
           </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

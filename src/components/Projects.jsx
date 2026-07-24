@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/projects.scss';
 import { PROJECTS } from '../data/index.jsx';
 import ProjectCard from './ProjectCard.jsx';

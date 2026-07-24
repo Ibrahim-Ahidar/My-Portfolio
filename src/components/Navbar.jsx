@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import '../styles/navbar.scss';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars, FaTimes, FaChevronDown, FaGlobe } from 'react-icons/fa';
+import { FaBars, FaTimes, FaChevronDown, FaGlobe, FaMoon, FaSun } from 'react-icons/fa';
 import { useLanguage } from '../i18n/LanguageContext';
+import { useTheme } from '../context/ThemeContext';
 import { PROFILE } from '../data/index.jsx';
 
 const SECTION_IDS = ['hero', 'services', 'stack', 'projects', 'contact'];
 
 const LANGUAGES = [
   { code: 'en', name: 'English', short: 'EN' },
-  { code: 'fr', name: 'Français', short: 'FR' },
   { code: 'es', name: 'Español', short: 'ES' },
-  { code: 'ar', name: 'العربية', short: 'AR' },
+  { code: 'fr', name: 'Français', short: 'FR' },
 ];
 
 const Navbar = () => {
@@ -19,6 +18,7 @@ const Navbar = () => {
   const [showLangMenu, setShowLangMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { language, changeLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     let ticking = false;
@@ -106,7 +106,6 @@ const Navbar = () => {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-    setActiveSection(id);
     setMobileMenuOpen(false);
   }, []);
 
@@ -131,13 +130,7 @@ const Navbar = () => {
           aria-current={isActive ? 'page' : undefined}
         >
           {label}
-          {isActive && (
-            <motion.span
-              className="nav-underline"
-              layoutId={isMobile ? 'mobile-nav-underline' : 'desktop-nav-underline'}
-              transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-            />
-          )}
+          {isActive && <span className="nav-underline" aria-hidden="true" />}
         </button>
       </li>
     );
@@ -145,12 +138,7 @@ const Navbar = () => {
 
   return (
     <>
-      <motion.nav
-        className="navbar"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: 'circOut' }}
-      >
+      <nav className="navbar">
         <button
           type="button"
           className="logo"
@@ -165,6 +153,16 @@ const Navbar = () => {
         </ul>
 
         <div className="controls">
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+          >
+            {theme === 'dark' ? <FaSun aria-hidden="true" /> : <FaMoon aria-hidden="true" />}
+          </button>
+
           <div className={`language-switcher ${showLangMenu ? 'open' : ''}`}>
             <button
               type="button"
@@ -220,28 +218,21 @@ const Navbar = () => {
             {mobileMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            className="mobile-drawer"
-            initial={{ opacity: 0, x: '100%' }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: '100%' }}
-            transition={{ type: 'spring', stiffness: 260, damping: 26 }}
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
-          >
-            <div className="drawer-content">
-              <ul className="drawer-links">
-                {navItems.map(({ id, label }) => renderNavLink(id, label, true))}
-              </ul>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div
+        className={`mobile-drawer ${mobileMenuOpen ? 'is-open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        aria-hidden={!mobileMenuOpen}
+      >
+        <div className="drawer-content">
+          <ul className="drawer-links">
+            {navItems.map(({ id, label }) => renderNavLink(id, label, true))}
+          </ul>
+        </div>
+      </div>
     </>
   );
 };
