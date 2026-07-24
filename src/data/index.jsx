@@ -40,6 +40,7 @@ export const PROFILE = {
   name: 'Ibrahim Ahidar',
   email: 'ahidaribrahim77@gmail.com',
   location: 'Madrid, Spain',
+  website: 'https://www.ibrahimahidar.com',
   social: {
     github: 'https://github.com/Ibrahim-Ahidar',
     linkedin: 'https://linkedin.com/in/ibrahim-ahidar',

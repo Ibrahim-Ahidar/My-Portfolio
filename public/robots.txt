@@ -1,0 +1,5 @@
+# https://www.ibrahimahidar.com/robots.txt
+User-agent: *
+Allow: /
+
+Sitemap: https://www.ibrahimahidar.com/sitemap.xml

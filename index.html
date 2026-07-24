@@ -4,11 +4,104 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- Primary SEO — name-first so "ibrahim ahidar" matches -->
     <title>Ibrahim Ahidar | Full-Stack Developer</title>
     <meta
       name="description"
-      content="Ibrahim Ahidar — Full-Stack Developer. Modern web apps with React, Node.js, MongoDB and PostgreSQL. Based in Madrid, Spain. Open to full-time remote roles."
+      content="Ibrahim Ahidar — Full-Stack Developer based in Madrid, Spain. Building modern web apps with React, Node.js, MongoDB and PostgreSQL. Portfolio, projects, and contact."
     />
+    <meta name="author" content="Ibrahim Ahidar" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <link rel="canonical" href="https://www.ibrahimahidar.com/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ibrahim Ahidar" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:locale:alternate" content="es_ES" />
+    <meta property="og:url" content="https://www.ibrahimahidar.com/" />
+    <meta property="og:title" content="Ibrahim Ahidar | Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Ibrahim Ahidar — Full-Stack Developer based in Madrid, Spain. React, Node.js, MongoDB, PostgreSQL. View projects and get in touch."
+    />
+    <meta property="og:image" content="https://www.ibrahimahidar.com/icon.png" />
+    <meta property="og:image:alt" content="Ibrahim Ahidar — Full-Stack Developer" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Ibrahim Ahidar | Full-Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Ibrahim Ahidar — Full-Stack Developer based in Madrid, Spain. React, Node.js, MongoDB, PostgreSQL."
+    />
+    <meta name="twitter:image" content="https://www.ibrahimahidar.com/icon.png" />
+
+    <!-- Identity links for search engines -->
+    <link rel="me" href="https://github.com/Ibrahim-Ahidar" />
+    <link rel="me" href="https://linkedin.com/in/ibrahim-ahidar" />
+
+    <!-- Structured data: Person + WebSite (helps name search) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.ibrahimahidar.com/#person",
+            "name": "Ibrahim Ahidar",
+            "url": "https://www.ibrahimahidar.com/",
+            "jobTitle": "Full-Stack Developer",
+            "description": "Full-Stack Developer based in Madrid, Spain. Builds modern web applications with React, Node.js, MongoDB and PostgreSQL.",
+            "email": "mailto:ahidaribrahim77@gmail.com",
+            "mainEntityOfPage": { "@id": "https://www.ibrahimahidar.com/#profilepage" },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Madrid",
+              "addressCountry": "ES"
+            },
+            "sameAs": [
+              "https://github.com/Ibrahim-Ahidar",
+              "https://linkedin.com/in/ibrahim-ahidar",
+              "https://ibrahim-ahidar.vercel.app"
+            ],
+            "knowsAbout": [
+              "React",
+              "Node.js",
+              "MongoDB",
+              "PostgreSQL",
+              "TypeScript",
+              "Full-Stack Development",
+              "Web Development"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.ibrahimahidar.com/#website",
+            "name": "Ibrahim Ahidar",
+            "alternateName": "Ibrahim Ahidar Portfolio",
+            "url": "https://www.ibrahimahidar.com/",
+            "description": "Official portfolio of Ibrahim Ahidar, Full-Stack Developer.",
+            "inLanguage": ["en", "fr", "es"],
+            "publisher": { "@id": "https://www.ibrahimahidar.com/#person" },
+            "about": { "@id": "https://www.ibrahimahidar.com/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://www.ibrahimahidar.com/#profilepage",
+            "url": "https://www.ibrahimahidar.com/",
+            "name": "Ibrahim Ahidar | Full-Stack Developer",
+            "isPartOf": { "@id": "https://www.ibrahimahidar.com/#website" },
+            "about": { "@id": "https://www.ibrahimahidar.com/#person" },
+            "mainEntity": { "@id": "https://www.ibrahimahidar.com/#person" }
+          }
+        ]
+      }
+    </script>
+
     <script>
       (function () {
         try {
@@ -25,7 +118,32 @@
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- React replaces this crawlable fallback when the application starts. -->
+    <div id="root">
+      <main>
+        <header>
+        <h1>Ibrahim Ahidar — Full-Stack Developer</h1>
+        <p>
+          Official portfolio of Ibrahim Ahidar, Full-Stack Developer based in Madrid, Spain.
+          Building modern web apps with React, Node.js, MongoDB and PostgreSQL.
+        </p>
+        </header>
+        <section>
+          <h2>Projects by Ibrahim Ahidar</h2>
+          <ul>
+            <li><a href="https://hande-made-v2.vercel.app/">HandeMade V2</a></li>
+            <li><a href="https://opti-cloud.vercel.app/">OptiCloud</a></li>
+            <li><a href="https://github.com/Ibrahim-Ahidar/Clip-Cuter">Clip-Cuter</a></li>
+            <li><a href="https://ibrahim-ahidar.github.io/ConnectFit/">ConnectFit</a></li>
+          </ul>
+        </section>
+        <p>
+          <a href="https://github.com/Ibrahim-Ahidar">GitHub</a> ·
+          <a href="https://linkedin.com/in/ibrahim-ahidar">LinkedIn</a> ·
+          <a href="mailto:ahidaribrahim77@gmail.com">Email</a>
+        </p>
+      </main>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

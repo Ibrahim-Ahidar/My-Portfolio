@@ -10,18 +10,8 @@ import BackToTop from './components/BackToTop';
 
 function App() {
   useEffect(() => {
+    // Keep document title in sync; primary SEO tags live in index.html for crawlers
     document.title = 'Ibrahim Ahidar | Full-Stack Developer';
-    const description =
-      'Ibrahim Ahidar — Full-Stack Developer. Modern web apps with React, Node.js, MongoDB and PostgreSQL. Based in Madrid, Spain. Open to full-time remote roles.';
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute('content', description);
-    } else {
-      metaDesc = document.createElement('meta');
-      metaDesc.name = 'description';
-      metaDesc.content = description;
-      document.head.appendChild(metaDesc);
-    }
   }, []);
 
   return (
