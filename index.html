@@ -76,7 +76,15 @@
               "TypeScript",
               "Full-Stack Development",
               "Web Development"
-            ]
+            ],
+            "hasOccupation": {
+              "@type": "Occupation",
+              "name": "Full-Stack Developer",
+              "occupationLocation": {
+                "@type": "City",
+                "name": "Madrid"
+              }
+            }
           },
           {
             "@type": "WebSite",
@@ -97,6 +105,43 @@
             "isPartOf": { "@id": "https://www.ibrahimahidar.com/#website" },
             "about": { "@id": "https://www.ibrahimahidar.com/#person" },
             "mainEntity": { "@id": "https://www.ibrahimahidar.com/#person" }
+          },
+          {
+            "@type": "ItemList",
+            "@id": "https://www.ibrahimahidar.com/#projects",
+            "name": "Projects by Ibrahim Ahidar",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "HandeMade V2",
+                "url": "https://hande-made-v2.vercel.app/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "OptiCloud",
+                "url": "https://opti-cloud.vercel.app/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Clip-Cuter",
+                "url": "https://github.com/Ibrahim-Ahidar/Clip-Cuter"
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "ConnectFit",
+                "url": "https://ibrahim-ahidar.github.io/ConnectFit/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "name": "NettoCar",
+                "url": "https://github.com/Ibrahim-Ahidar/NettoCar"
+              }
+            ]
           }
         ]
       }
@@ -118,32 +163,21 @@
     </script>
   </head>
   <body>
-    <!-- React replaces this crawlable fallback when the application starts. -->
-    <div id="root">
+    <noscript>
       <main>
-        <header>
         <h1>Ibrahim Ahidar — Full-Stack Developer</h1>
         <p>
           Official portfolio of Ibrahim Ahidar, Full-Stack Developer based in Madrid, Spain.
           Building modern web apps with React, Node.js, MongoDB and PostgreSQL.
         </p>
-        </header>
-        <section>
-          <h2>Projects by Ibrahim Ahidar</h2>
-          <ul>
-            <li><a href="https://hande-made-v2.vercel.app/">HandeMade V2</a></li>
-            <li><a href="https://opti-cloud.vercel.app/">OptiCloud</a></li>
-            <li><a href="https://github.com/Ibrahim-Ahidar/Clip-Cuter">Clip-Cuter</a></li>
-            <li><a href="https://ibrahim-ahidar.github.io/ConnectFit/">ConnectFit</a></li>
-          </ul>
-        </section>
         <p>
           <a href="https://github.com/Ibrahim-Ahidar">GitHub</a> ·
           <a href="https://linkedin.com/in/ibrahim-ahidar">LinkedIn</a> ·
           <a href="mailto:ahidaribrahim77@gmail.com">Email</a>
         </p>
       </main>
-    </div>
+    </noscript>
+    <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
