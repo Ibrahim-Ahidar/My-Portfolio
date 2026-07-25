@@ -230,28 +230,28 @@ select:focus-visible {
   position: fixed;
   bottom: calc(1.25rem + var(--safe-bottom));
   right: calc(1.25rem + var(--safe-right));
-  width: var(--touch-min);
-  height: var(--touch-min);
-  min-width: var(--touch-min);
-  min-height: var(--touch-min);
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
   border-radius: 50%;
-  background: var(--color-surface);
-  border: 1px solid var(--color-card-border);
-  color: var(--color-text-main);
+  background: #0a66c2;
+  border: 1px solid #0a66c2;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 1000;
-  font-size: 1rem;
-  box-shadow: var(--shadow-md);
+  font-size: 1.5rem;
+  box-shadow: 0 4px 14px rgba(10, 102, 194, 0.45);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
   transform: translateY(8px);
   transition: opacity var(--transition-fast), transform var(--transition-fast),
     visibility var(--transition-fast), background var(--transition-fast),
-    color var(--transition-fast);
+    color var(--transition-fast), box-shadow var(--transition-fast);
 
   &.is-visible {
     opacity: 1;
@@ -261,9 +261,10 @@ select:focus-visible {
   }
 
   &:hover {
-    background: var(--color-accent);
+    background: #004182;
+    border-color: #004182;
     color: #fff;
-    border-color: var(--color-accent);
+    box-shadow: 0 6px 18px rgba(10, 102, 194, 0.55);
   }
 
   @media (min-width: 769px) {
@@ -271,6 +272,9 @@ select:focus-visible {
     right: 30px;
     width: 48px;
     height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    font-size: 1.25rem;
   }
 }
 
