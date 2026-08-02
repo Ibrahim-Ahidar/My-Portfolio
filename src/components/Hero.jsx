@@ -11,7 +11,7 @@ const Hero = () => {
       <div className="container hero-single">
         <div className="hero-content fade-in">
           <p className="hero-location">
-            {PROFILE.location} · Remote
+            {PROFILE.location} · CET · Freelance & remote
           </p>
 
           <h1>

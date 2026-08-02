@@ -2,7 +2,7 @@ export const translations = {
   en: {
     nav: {
       home: 'Home',
-      services: 'Expertise',
+      services: 'Services',
       skills: 'Skills',
       projects: 'Projects',
       contact: 'Contact',
@@ -10,12 +10,12 @@ export const translations = {
     hero: {
       greeting: "I'm",
       name: 'Ibrahim Ahidar',
-      subtitle: 'Full-Stack Developer',
+      subtitle: 'React + Node.js Full-Stack | Next.js, MongoDB, APIs',
       description:
-        'I build full-stack web applications with React, Node.js, and MongoDB/PostgreSQL — from polished frontends to secure APIs and production deployments.',
+        'I ship production React + Node.js web apps — marketplaces, clinic/SaaS dashboards, and REST APIs with auth — then deploy them (Vercel/Render). Clear milestones, clean repos, CET overlap.',
       viewWork: 'View Work',
       downloadCV: 'Download Resume',
-      contact: 'Contact me',
+      contact: 'Hire me',
     },
     techStack: {
       title: 'Technologies & Tools',
@@ -31,26 +31,26 @@ export const translations = {
       showLess: 'Show less',
     },
     services: {
-      title: 'What I bring to a team',
+      title: 'How I can help',
       webDev: {
-        title: 'Full-Stack Web Development',
+        title: 'Marketplaces & small SaaS',
         description:
-          'High-performance responsive web applications built with React, Vite, Node.js, and modern CSS frameworks.',
+          'End-to-end React + Node apps with carts, roles, dashboards, and production deploys — scoped milestones, not endless “build everything” scopes.',
       },
       mobileDev: {
-        title: 'Frontend Engineering',
+        title: 'Dashboards & UI features',
         description:
-          'Polished, accessible interfaces with React, TypeScript, Tailwind CSS, and Material UI — optimized for speed and usability.',
+          'Dashboard screens wired to real API data — charts, CRUD, filters — with Tailwind or MUI. Ideal first milestone: one screen + endpoint, Done = merged and demoed.',
       },
       apiDev: {
-        title: 'API & Backend Development',
+        title: 'Auth & REST APIs',
         description:
-          'Secure REST APIs with Express, JWT authentication, rate limiting, and clean architecture ready for production.',
+          'JWT / Google OAuth, protected routes, RBAC, Express APIs, and rate limiting — production-ready auth and backend slices you can plug into an existing app.',
       },
       dbDev: {
-        title: 'Database Architecture',
+        title: 'Deploy & handover',
         description:
-          'MongoDB and PostgreSQL schemas, data modeling, and secure storage patterns for scalable full-stack applications.',
+          'Next.js + Supabase / Postgres on Vercel (or Render): env setup, smoke tests, and a written runbook so staging and production stay green after handoff.',
       },
     },
     projects: {
@@ -61,27 +61,27 @@ export const translations = {
       handmade: {
         title: 'HandeMade V2',
         description:
-          'Full-stack marketplace for handcrafted goods — buyer carts and checkout, seller dashboards with shop profiles, admin panel, JWT + Google Sign-In, and Cloudinary image uploads.',
+          'Live artisan marketplace — cart & checkout, seller/admin dashboards, JWT + Google OAuth, Cloudinary uploads. Proof of full-stack marketplace delivery.',
       },
       opticloud: {
         title: 'OptiCloud',
         description:
-          'Optical clinic management platform for patients, prescriptions, inventory, quotes with PDF export, appointments, and role-based dashboards for admin, optician, and reception.',
+          'Live optical clinic SaaS — patients, inventory, appointments, PDF quotes, RBAC dashboards on Postgres/Supabase. Proof of ops dashboard + API work.',
       },
       clipcuter: {
         title: 'Clip-Cuter',
         description:
-          'Local-first AI pipeline that turns YouTube videos into scored, subtitled 9:16 shorts using Whisper, Ollama, and FFmpeg — no cloud APIs or API keys required.',
+          'Local AI clip pipeline (Whisper + Ollama + FFmpeg) with a TypeScript/React dashboard — scored, subtitled 9:16 shorts with no cloud API keys.',
       },
       connectfit: {
         title: 'ConnectFit',
         description:
-          'Responsive fitness e-commerce site with product catalog, about, and training pages — built with semantic HTML, CSS, and vanilla JavaScript on GitHub Pages.',
+          'Responsive fitness storefront — product catalog and marketing pages in semantic HTML, CSS, and vanilla JS on GitHub Pages.',
       },
       nettocar: {
         title: 'NettoCar',
         description:
-          'Desktop management app for car wash and garage businesses — clients, vehicles, services, stock, employees, and agencies in a VB.NET WinForms + Access solution.',
+          'Desktop ops app for car wash / garage businesses — clients, vehicles, services, stock, and agencies in VB.NET WinForms + Access.',
       },
     },
     contact: {
@@ -90,15 +90,17 @@ export const translations = {
       message: 'Message',
       placeholderName: 'Your name',
       placeholderEmail: 'you@example.com',
-      placeholderMessage: 'Tell me about the role or opportunity...',
+      placeholderMessage:
+        'Brief, stack, and first milestone (e.g. one screen + API, auth setup, or deploy handover)…',
       submit: 'Send',
       sending: 'Sending...',
       success: 'Message sent — I will get back to you soon.',
       error: 'Could not send your message. Please try again.',
       whatsapp: 'WhatsApp',
       whatsappMissing: 'Please fill in name, email, and message first.',
-      available: 'Open to full-time remote opportunities',
-      quickConnect: 'Get in touch',
+      available:
+        'Available for freelance & contract work · React / Node / Next.js · CET timezone',
+      quickConnect: 'Start a project',
     },
     footer: {
       rights: 'All rights reserved',
@@ -108,7 +110,7 @@ export const translations = {
   fr: {
     nav: {
       home: 'Accueil',
-      services: 'Expertise',
+      services: 'Services',
       skills: 'Compétences',
       projects: 'Projets',
       contact: 'Contact',
@@ -116,12 +118,12 @@ export const translations = {
     hero: {
       greeting: 'Je suis',
       name: 'Ibrahim Ahidar',
-      subtitle: 'Développeur Full-Stack',
+      subtitle: 'React + Node.js Full-Stack | Next.js, MongoDB, APIs',
       description:
-        'Je développe des applications web full-stack avec React, Node.js et MongoDB/PostgreSQL — des interfaces soignées aux API sécurisées et déploiements en production.',
+        'Je livre des apps web React + Node.js en production — marketplaces, dashboards clinique/SaaS et API REST avec auth — puis je déploie (Vercel/Render). Jalons clairs, repos propres, fuseau CET.',
       viewWork: 'Voir mes travaux',
       downloadCV: 'Télécharger le CV',
-      contact: 'Me contacter',
+      contact: 'Me recruter',
     },
     techStack: {
       title: 'Technologies & Outils',
@@ -137,26 +139,26 @@ export const translations = {
       showLess: 'Voir moins',
     },
     services: {
-      title: 'Ce que j’apporte à une équipe',
+      title: 'Comment je peux aider',
       webDev: {
-        title: 'Développement Web Full-Stack',
+        title: 'Marketplaces & petits SaaS',
         description:
-          'Applications web performantes et réactives construites avec React, Vite, Node.js et des frameworks CSS modernes.',
+          'Apps React + Node de bout en bout — paniers, rôles, dashboards et déploiements prod — avec des jalons cadrés, pas un scope « tout construire ».',
       },
       mobileDev: {
-        title: 'Ingénierie Frontend',
+        title: 'Dashboards & fonctionnalités UI',
         description:
-          'Interfaces soignées et accessibles avec React, TypeScript, Tailwind CSS et Material UI — optimisées pour la vitesse.',
+          'Écrans dashboard branchés sur de vraies API — graphiques, CRUD, filtres — avec Tailwind ou MUI. Premier jalon idéal : un écran + endpoint, Done = fusionné et démo.',
       },
       apiDev: {
-        title: 'API & Backend',
+        title: 'Auth & API REST',
         description:
-          'API REST sécurisées avec Express, authentification JWT, rate limiting et architecture prête pour la production.',
+          'JWT / Google OAuth, routes protégées, RBAC, API Express et rate limiting — tranches auth/backend prêtes pour la prod, branchables sur une app existante.',
       },
       dbDev: {
-        title: 'Architecture de Base de Données',
+        title: 'Déploiement & handover',
         description:
-          'Schémas MongoDB et PostgreSQL, modélisation de données et patterns de stockage sécurisés pour applications scalables.',
+          'Next.js + Supabase / Postgres sur Vercel (ou Render) : env, smoke tests et runbook écrit pour garder staging et prod verts après la remise.',
       },
     },
     projects: {
@@ -167,27 +169,27 @@ export const translations = {
       handmade: {
         title: 'HandeMade V2',
         description:
-          'Marketplace full-stack pour produits artisanaux — paniers acheteurs, tableaux de bord vendeurs, panel admin, auth JWT + Google et uploads Cloudinary.',
+          'Marketplace artisanale en ligne — panier & checkout, dashboards vendeur/admin, JWT + Google OAuth, uploads Cloudinary. Preuve de livraison marketplace full-stack.',
       },
       opticloud: {
         title: 'OptiCloud',
         description:
-          'Plateforme de gestion de clinique optique — patients, ordonnances, inventaire, devis PDF, rendez-vous et accès par rôles (admin, opticien, réception).',
+          'SaaS clinique optique en ligne — patients, inventaire, RDV, devis PDF, dashboards RBAC sur Postgres/Supabase. Preuve de dashboard ops + API.',
       },
       clipcuter: {
         title: 'Clip-Cuter',
         description:
-          'Pipeline IA local qui transforme des vidéos YouTube en shorts 9:16 notés et sous-titrés avec Whisper, Ollama et FFmpeg — sans API cloud.',
+          'Pipeline IA local (Whisper + Ollama + FFmpeg) avec dashboard TypeScript/React — shorts 9:16 notés et sous-titrés, sans clés API cloud.',
       },
       connectfit: {
         title: 'ConnectFit',
         description:
-          'Site e-commerce fitness responsive avec catalogue produits, à propos et formation — HTML sémantique, CSS et JavaScript vanilla sur GitHub Pages.',
+          'Boutique fitness responsive — catalogue et pages marketing en HTML sémantique, CSS et JavaScript vanilla sur GitHub Pages.',
       },
       nettocar: {
         title: 'NettoCar',
         description:
-          'Application desktop pour lavages auto et garages — clients, véhicules, services, stock, employés et agences avec VB.NET WinForms et Access.',
+          'App desktop pour lavages auto / garages — clients, véhicules, services, stock et agences avec VB.NET WinForms + Access.',
       },
     },
     contact: {
@@ -196,15 +198,17 @@ export const translations = {
       message: 'Message',
       placeholderName: 'Votre nom',
       placeholderEmail: 'vous@exemple.com',
-      placeholderMessage: 'Parlez-moi du poste ou de l’opportunité...',
+      placeholderMessage:
+        'Brief, stack et premier jalon (ex. un écran + API, auth, ou déploiement)…',
       submit: 'Envoyer',
       sending: 'Envoi...',
       success: 'Message envoyé — je vous répondrai bientôt.',
       error: 'Impossible d\'envoyer le message. Réessayez.',
       whatsapp: 'WhatsApp',
       whatsappMissing: 'Veuillez d\'abord remplir le nom, l\'email et le message.',
-      available: 'Ouvert aux opportunités CDI à distance',
-      quickConnect: 'Me contacter',
+      available:
+        'Disponible en freelance & contrat · React / Node / Next.js · fuseau CET',
+      quickConnect: 'Démarrer un projet',
     },
     footer: {
       rights: 'Tous droits réservés',
@@ -214,7 +218,7 @@ export const translations = {
   es: {
     nav: {
       home: 'Inicio',
-      services: 'Expertise',
+      services: 'Servicios',
       skills: 'Habilidades',
       projects: 'Proyectos',
       contact: 'Contacto',
@@ -222,12 +226,12 @@ export const translations = {
     hero: {
       greeting: 'Soy',
       name: 'Ibrahim Ahidar',
-      subtitle: 'Desarrollador Full-Stack',
+      subtitle: 'React + Node.js Full-Stack | Next.js, MongoDB, APIs',
       description:
-        'Desarrollo aplicaciones web full-stack con React, Node.js y MongoDB/PostgreSQL — desde frontends pulidos hasta APIs seguras y despliegues en producción.',
+        'Entrego apps web React + Node.js en producción — marketplaces, dashboards de clínica/SaaS y APIs REST con auth — y las despliego (Vercel/Render). Hitos claros, repos limpios, zona CET.',
       viewWork: 'Ver trabajos',
       downloadCV: 'Descargar currículum',
-      contact: 'Contáctame',
+      contact: 'Contrátame',
     },
     techStack: {
       title: 'Tecnologías y Herramientas',
@@ -243,26 +247,26 @@ export const translations = {
       showLess: 'Ver menos',
     },
     services: {
-      title: 'Lo que aporto a un equipo',
+      title: 'Cómo puedo ayudar',
       webDev: {
-        title: 'Desarrollo Web Full-Stack',
+        title: 'Marketplaces y SaaS pequeños',
         description:
-          'Aplicaciones web de alto rendimiento construidas con React, Vite, Node.js y frameworks CSS modernos.',
+          'Apps React + Node de punta a punta — carritos, roles, dashboards y deploys en prod — con hitos acotados, no scopes infinitos de “construye todo”.',
       },
       mobileDev: {
-        title: 'Ingeniería Frontend',
+        title: 'Dashboards y features UI',
         description:
-          'Interfaces pulidas y accesibles con React, TypeScript, Tailwind CSS y Material UI — optimizadas para velocidad.',
+          'Pantallas de dashboard conectadas a APIs reales — charts, CRUD, filtros — con Tailwind o MUI. Primer hito ideal: una pantalla + endpoint, Done = mergeado y demo.',
       },
       apiDev: {
-        title: 'API y Backend',
+        title: 'Auth y APIs REST',
         description:
-          'APIs REST seguras con Express, autenticación JWT, rate limiting y arquitectura lista para producción.',
+          'JWT / Google OAuth, rutas protegidas, RBAC, APIs Express y rate limiting — auth y backend listos para producción, enchufables a una app existente.',
       },
       dbDev: {
-        title: 'Arquitectura de Base de Datos',
+        title: 'Deploy y handover',
         description:
-          'Esquemas MongoDB y PostgreSQL, modelado de datos y patrones de almacenamiento seguros para apps escalables.',
+          'Next.js + Supabase / Postgres en Vercel (o Render): env, smoke tests y runbook escrito para dejar staging y prod en verde tras la entrega.',
       },
     },
     projects: {
@@ -273,27 +277,27 @@ export const translations = {
       handmade: {
         title: 'HandeMade V2',
         description:
-          'Marketplace full-stack para productos artesanales — carritos de compra, paneles de vendedores, panel admin, auth JWT + Google y subidas Cloudinary.',
+          'Marketplace artesanal en vivo — carrito y checkout, dashboards vendedor/admin, JWT + Google OAuth, subidas Cloudinary. Prueba de entrega marketplace full-stack.',
       },
       opticloud: {
         title: 'OptiCloud',
         description:
-          'Plataforma de gestión para clínicas ópticas — pacientes, recetas, inventario, presupuestos PDF, citas y paneles por roles (admin, óptico, recepción).',
+          'SaaS de clínica óptica en vivo — pacientes, inventario, citas, presupuestos PDF, dashboards RBAC en Postgres/Supabase. Prueba de dashboard ops + API.',
       },
       clipcuter: {
         title: 'Clip-Cuter',
         description:
-          'Pipeline de IA local que convierte videos de YouTube en shorts 9:16 puntuados y subtitulados con Whisper, Ollama y FFmpeg — sin APIs en la nube.',
+          'Pipeline de IA local (Whisper + Ollama + FFmpeg) con dashboard TypeScript/React — shorts 9:16 puntuados y subtitulados, sin claves API en la nube.',
       },
       connectfit: {
         title: 'ConnectFit',
         description:
-          'Sitio e-commerce fitness responsive con catálogo, about y training — HTML semántico, CSS y JavaScript vanilla en GitHub Pages.',
+          'Tienda fitness responsive — catálogo y páginas de marketing en HTML semántico, CSS y JavaScript vanilla en GitHub Pages.',
       },
       nettocar: {
         title: 'NettoCar',
         description:
-          'App desktop para lavados de coches y talleres — clientes, vehículos, servicios, stock, empleados y agencias con VB.NET WinForms y Access.',
+          'App desktop para lavados / talleres — clientes, vehículos, servicios, stock y agencias con VB.NET WinForms + Access.',
       },
     },
     contact: {
@@ -302,18 +306,20 @@ export const translations = {
       message: 'Mensaje',
       placeholderName: 'Tu nombre',
       placeholderEmail: 'tu@ejemplo.com',
-      placeholderMessage: 'Cuéntame sobre el puesto o la oportunidad...',
+      placeholderMessage:
+        'Brief, stack y primer hito (p. ej. una pantalla + API, auth o deploy)…',
       submit: 'Enviar',
       sending: 'Enviando...',
       success: 'Mensaje enviado — te responderé pronto.',
       error: 'No se pudo enviar el mensaje. Inténtalo de nuevo.',
       whatsapp: 'WhatsApp',
       whatsappMissing: 'Completa primero el nombre, el email y el mensaje.',
-      available: 'Abierto a oportunidades full-time en remoto',
-      quickConnect: 'Contactar',
+      available:
+        'Disponible para freelance y contrato · React / Node / Next.js · zona CET',
+      quickConnect: 'Empezar un proyecto',
     },
     footer: {
       rights: 'Todos los derechos reservados',
     },
-  }
+  },
 };

@@ -1,13 +1,13 @@
 import '../styles/services.scss';
 import { useLanguage } from '../i18n/LanguageContext';
 import { useReveal } from '../hooks/useReveal';
-import { FaLaptopCode, FaMobileAlt, FaServer, FaDatabase } from 'react-icons/fa';
+import { FaLaptopCode, FaChartBar, FaLock, FaRocket } from 'react-icons/fa';
 
 const SERVICES = [
   { id: 'webDev', icon: FaLaptopCode },
-  { id: 'mobileDev', icon: FaMobileAlt },
-  { id: 'apiDev', icon: FaServer },
-  { id: 'dbDev', icon: FaDatabase },
+  { id: 'mobileDev', icon: FaChartBar },
+  { id: 'apiDev', icon: FaLock },
+  { id: 'dbDev', icon: FaRocket },
 ];
 
 const ServiceCard = ({ service, index }) => {
