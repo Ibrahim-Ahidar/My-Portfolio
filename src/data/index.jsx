@@ -14,6 +14,11 @@ import connectfit3 from '../assets/projects/connect-fit/3.png';
 import nettocar1 from '../assets/projects/nettocar/1.png';
 import nettocar2 from '../assets/projects/nettocar/2.png';
 import nettocar3 from '../assets/projects/nettocar/3.png';
+import syndexa1 from '../assets/projects/syndexa/1.png';
+import syndexa2 from '../assets/projects/syndexa/2.png';
+import syndexa3 from '../assets/projects/syndexa/3.png';
+import syndexa4 from '../assets/projects/syndexa/4.png';
+import syndexa5 from '../assets/projects/syndexa/5.png';
 
 import { FaHtml5, FaCss3Alt, FaJs, FaPhp, FaGitAlt, FaNodeJs, FaDatabase } from 'react-icons/fa';
 import { VscBeaker } from 'react-icons/vsc';
@@ -82,6 +87,16 @@ export const TECH_STACK = [
 export const PROJECTS = [
   {
     id: 1,
+    translationKey: 'syndexa',
+    title: 'Syndixa',
+    description:
+      'Live trilingual condo management SaaS (FR/EN/AR) — residences, contributions, payments & PDF receipts with RBAC on Next.js + Supabase.',
+    stack: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS', 'PostgreSQL'],
+    demoUrl: 'https://syndexa.vercel.app',
+    assets: [syndexa1, syndexa2, syndexa3, syndexa4, syndexa5],
+  },
+  {
+    id: 2,
     translationKey: 'handmade',
     title: 'HandeMade V2',
     description:
@@ -92,7 +107,7 @@ export const PROJECTS = [
     assets: [handmade1, handmade2, handmade3, handmade4, handmade5],
   },
   {
-    id: 2,
+    id: 3,
     translationKey: 'opticloud',
     title: 'OptiCloud',
     description:
@@ -103,7 +118,7 @@ export const PROJECTS = [
     assets: [optique1, optique2, optique3, optique4],
   },
   {
-    id: 3,
+    id: 4,
     translationKey: 'clipcuter',
     title: 'Clip-Cuter',
     description:
@@ -114,7 +129,7 @@ export const PROJECTS = [
     assets: [clipcuter1],
   },
   {
-    id: 4,
+    id: 5,
     translationKey: 'connectfit',
     title: 'ConnectFit',
     description:
@@ -125,7 +140,7 @@ export const PROJECTS = [
     assets: [connectfit1, connectfit2, connectfit3],
   },
   {
-    id: 5,
+    id: 6,
     translationKey: 'nettocar',
     title: 'NettoCar',
     description:

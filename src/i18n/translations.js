@@ -58,6 +58,11 @@ export const translations = {
       viewLive: 'View Live',
       showMore: 'Show more projects',
       showLess: 'Show less',
+      syndexa: {
+        title: 'Syndixa',
+        description:
+          'Live trilingual condo management SaaS (FR/EN/AR) — residences, contributions, payments & PDF receipts with RBAC on Next.js + Supabase.',
+      },
       handmade: {
         title: 'HandeMade V2',
         description:
@@ -166,6 +171,11 @@ export const translations = {
       viewLive: 'Voir le projet',
       showMore: 'Voir plus de projets',
       showLess: 'Voir moins',
+      syndexa: {
+        title: 'Syndixa',
+        description:
+          'SaaS de gestion de copropriété trilingue (FR/EN/AR) — résidences, cotisations, paiements et reçus PDF avec RBAC sur Next.js + Supabase.',
+      },
       handmade: {
         title: 'HandeMade V2',
         description:
@@ -274,6 +284,11 @@ export const translations = {
       viewLive: 'Ver en vivo',
       showMore: 'Ver más proyectos',
       showLess: 'Ver menos',
+      syndexa: {
+        title: 'Syndixa',
+        description:
+          'SaaS trilingüe de gestión de comunidades (FR/EN/AR) — residencias, cuotas, pagos y recibos PDF con RBAC en Next.js + Supabase.',
+      },
       handmade: {
         title: 'HandeMade V2',
         description:
