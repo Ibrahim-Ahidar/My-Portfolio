@@ -2,14 +2,15 @@ import '../styles/hero.scss';
 import { PROFILE } from '../data/index.jsx';
 import { useLanguage } from '../i18n/LanguageContext';
 import cvFile from '../assets/cv/Ibrahim_Ahdiar_CV.pdf';
+import profileImg from '../assets/profile.png';
 
 const Hero = () => {
   const { t } = useLanguage();
 
   return (
     <section className="hero-section" id="hero">
-      <div className="container hero-single">
-        <div className="hero-content fade-in">
+      <div className="container">
+        <div className="hero-content">
           <p className="hero-location">
             {PROFILE.location} · CET · Freelance & remote
           </p>
@@ -54,6 +55,19 @@ const Hero = () => {
             >
               {t('hero.downloadCV')}
             </a>
+          </div>
+        </div>
+
+        <div className="hero-image">
+          <div className="img-box">
+            <img
+              src={profileImg}
+              alt={PROFILE.name}
+              width={420}
+              height={520}
+              decoding="async"
+              fetchPriority="high"
+            />
           </div>
         </div>
       </div>
