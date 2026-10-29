@@ -1,11 +1,16 @@
 import '../styles/hero.scss';
 import { PROFILE } from '../data/index.jsx';
 import { useLanguage } from '../i18n/LanguageContext';
-import cvFile from '../assets/cv/Ibrahim_Ahdiar_CV.pdf';
+import cvEn from '../assets/cv/Ibrahim_Ahidar_CV_EN.pdf';
+import cvFr from '../assets/cv/Ibrahim_Ahidar_CV_FR.pdf';
+
+// Add an 'es' entry here once the Spanish CV exists; other languages fall back to English.
+const CVS = { en: cvEn, fr: cvFr };
 import profileImg from '../assets/profile.png';
 
 const Hero = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const cvLang = CVS[language] ? language : 'en';
 
   return (
     <section className="hero-section" id="hero">
@@ -47,8 +52,8 @@ const Hero = () => {
               {t('hero.viewWork')}
             </a>
             <a
-              href={cvFile}
-              download="Ibrahim_Ahdiar_CV.pdf"
+              href={CVS[cvLang]}
+              download={`Ibrahim_Ahidar_CV_${cvLang.toUpperCase()}.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn cv-btn"
