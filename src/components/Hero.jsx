@@ -1,11 +1,10 @@
 import '../styles/hero.scss';
 import { PROFILE } from '../data/index.jsx';
 import { useLanguage } from '../i18n/LanguageContext';
-import cvEn from '../assets/cv/Ibrahim_Ahidar_CV_EN.pdf';
-import cvFr from '../assets/cv/Ibrahim_Ahidar_CV_FR.pdf';
 
 // Add an 'es' entry here once the Spanish CV exists; other languages fall back to English.
-const CVS = { en: cvEn, fr: cvFr };
+// Served from public/cv at stable URLs.
+const CVS = { en: '/cv/Ibrahim_Ahidar_CV_EN.pdf', fr: '/cv/Ibrahim_Ahidar_CV_FR.pdf' };
 import profileImg from '../assets/profile.png';
 
 const Hero = () => {

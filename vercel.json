@@ -13,6 +13,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|cv/).*)", "destination": "/index.html" }
   ]
 }
