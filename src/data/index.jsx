@@ -43,7 +43,7 @@ import {
 } from 'react-icons/si';
 
 export const PROFILE = {
-  name: 'Ibrahim Ahidar',
+  name: 'Ibrahim AHIDAR',
   email: 'ahidaribrahim77@gmail.com',
   location: 'Madrid, Spain',
   title: 'React + Node.js Full-Stack | Next.js, MongoDB, APIs',

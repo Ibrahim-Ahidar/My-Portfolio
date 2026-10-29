@@ -9,7 +9,7 @@ export const translations = {
     },
     hero: {
       greeting: "I'm",
-      name: 'Ibrahim Ahidar',
+      name: 'Ibrahim AHIDAR',
       subtitle: 'React + Node.js Full-Stack | Next.js, MongoDB, APIs',
       description:
         'I ship production React + Node.js web apps — marketplaces, clinic/SaaS dashboards, and REST APIs with auth — then deploy them (Vercel/Render). Clear milestones, clean repos, CET overlap.',
@@ -122,7 +122,7 @@ export const translations = {
     },
     hero: {
       greeting: 'Je suis',
-      name: 'Ibrahim Ahidar',
+      name: 'Ibrahim AHIDAR',
       subtitle: 'React + Node.js Full-Stack | Next.js, MongoDB, APIs',
       description:
         'Je livre des apps web React + Node.js en production — marketplaces, dashboards clinique/SaaS et API REST avec auth — puis je déploie (Vercel/Render). Jalons clairs, repos propres, fuseau CET.',
@@ -235,7 +235,7 @@ export const translations = {
     },
     hero: {
       greeting: 'Soy',
-      name: 'Ibrahim Ahidar',
+      name: 'Ibrahim AHIDAR',
       subtitle: 'React + Node.js Full-Stack | Next.js, MongoDB, APIs',
       description:
         'Entrego apps web React + Node.js en producción — marketplaces, dashboards de clínica/SaaS y APIs REST con auth — y las despliego (Vercel/Render). Hitos claros, repos limpios, zona CET.',
