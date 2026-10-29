@@ -11,7 +11,7 @@ import BackToTop from './components/BackToTop';
 function App() {
   useEffect(() => {
     // Keep document title in sync; primary SEO tags live in index.html for crawlers
-    document.title = 'Ibrahim Ahidar | React + Node.js Full-Stack';
+    document.title = 'Ibrahim AHIDAR | React + Node.js Full-Stack';
   }, []);
 
   return (
